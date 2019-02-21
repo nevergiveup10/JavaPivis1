@@ -13,8 +13,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -44,6 +47,22 @@ public class Main extends Application {
 			TextField tfield2 = new TextField ("Введите текст");
 			Separator sep2 = new Separator();
 			
+			Label label3 = new Label ("Виджет №3:");
+			TextField tfield3 = new TextField ("Введите имя объекта");
+			Button button4 = new Button("Выбрать объект");
+			RadioButton radBut1 = new RadioButton("1");
+			RadioButton radBut2 = new RadioButton("2");
+			RadioButton radBut3 = new RadioButton("3");
+			ToggleGroup radButgroup = new ToggleGroup();
+	        radBut1.setToggleGroup(radButgroup);
+	        radBut2.setToggleGroup(radButgroup);
+	        radBut3.setToggleGroup(radButgroup);
+			Separator sep3 = new Separator();
+			
+			Alert alert2 = new Alert(AlertType.WARNING);
+			alert2.setTitle("Ошибка!");
+			alert2.setHeaderText("Такого элемента не существует.");
+			alert2.setContentText("Выбирите другой элемент!");
 			
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -73,10 +92,24 @@ public class Main extends Application {
 					button3.setText(strBuffer);	
 				}
 			});
+			
+			button4.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+		        public void handle(ActionEvent event) {
+					if (radButgroup.getToggles().contains(radButgroup.selectToggle (tfield3))) {
+						radButgroup.selectToggle((Toggle) tfield3);
+					}
+					else {
+						alert2.showAndWait();
+					}
+					
+				}
+			});
 				
 			VBox pane1 = new VBox (10, label, tfield1, button1, combobox1, sep1);
 			VBox pane2 = new VBox(10, label2, tfield2, button2, button3, sep2);
-			VBox root = new VBox(10, pane1, pane2);
+			VBox pane3 = new VBox (10, label3, tfield3, button4, radBut1, radBut2, radBut3);
+			VBox root = new VBox(10, pane1, pane2, pane3);
 			Scene scene = new Scene(root,300,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
