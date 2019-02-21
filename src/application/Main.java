@@ -7,9 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -24,23 +27,41 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 			
 			Label label = new Label ("Виджет №1:");
-			Button button1 = new Button("Внести в список");           // кнопка
+			Button button1 = new Button("Внести в список");         
 			TextField tfield1 = new TextField ("Введите текст");
-			ComboBox combobox1 = new ComboBox();
+			ComboBox<String> combobox1 = new ComboBox<String>();
+			Separator sep1 = new Separator();
+			
+			Alert alert1 = new Alert(AlertType.WARNING);
+			alert1.setTitle("Ошибка!");
+			alert1.setHeaderText("Такой элемент уже содержится.");
+			alert1.setContentText("Введите другой текст!");
+			
+			Label label2 = new Label ("Виджет №2:");
+			Button button2 = new Button("Кнопка 1!");           
+			Button button3 = new Button("Кнопка 2!");           
+			TextField tfield2 = new TextField ("Введите текст");
+			Separator sep2 = new Separator();
+			
+			
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 	        public void handle(ActionEvent event) {
+			if (combobox1.getItems().contains(tfield1.getText())) {
+				alert1.showAndWait();
+			}
+			else {
 			combobox1.getItems().addAll(tfield1.getText());
 			combobox1.setValue(tfield1.getText());
-	          button1.setText("You've clicked!");
+			}
 			}
 			});
 			
 			
-	        FlowPane root = new FlowPane(10, 10, label, tfield1, button1, combobox1); // FlowPane располагает элементы в строку друг за другом
+	        FlowPane root = new FlowPane(10, 10, label, tfield1, button1, combobox1, sep1); // FlowPane располагает элементы в строку друг за другом
 	        root.setOrientation(Orientation.VERTICAL);
-	  //      Pane pane1 = new Pane();
-			Scene scene = new Scene(root,2000,500);
+	        FlowPane pane2 = new FlowPane(10,10, label2, tfield2, button2, button3, sep2);
+			Scene scene = new Scene(root,300,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Lab 1, Smolensky P.");
