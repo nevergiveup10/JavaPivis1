@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -57,10 +58,25 @@ public class Main extends Application {
 			}
 			});
 			
+			button2.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+		        public void handle(ActionEvent event) {
+					button3.setText(tfield2.getText());					
+				}
+			});
 			
-	        FlowPane root = new FlowPane(10, 10, label, tfield1, button1, combobox1, sep1); // FlowPane располагает элементы в строку друг за другом
-	        root.setOrientation(Orientation.VERTICAL);
-	        FlowPane pane2 = new FlowPane(10,10, label2, tfield2, button2, button3, sep2);
+			button3.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+		        public void handle(ActionEvent event) {
+					String strBuffer = button2.getText(); 
+					button2.setText(button3.getText());				
+					button3.setText(strBuffer);	
+				}
+			});
+				
+			VBox pane1 = new VBox (10, label, tfield1, button1, combobox1, sep1);
+			VBox pane2 = new VBox(10, label2, tfield2, button2, button3, sep2);
+			VBox root = new VBox(10, pane1, pane2);
 			Scene scene = new Scene(root,300,800);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
