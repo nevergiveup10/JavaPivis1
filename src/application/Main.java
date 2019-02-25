@@ -18,6 +18,9 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -57,12 +60,16 @@ public class Main extends Application {
 	        radBut1.setToggleGroup(radButgroup);
 	        radBut2.setToggleGroup(radButgroup);
 	        radBut3.setToggleGroup(radButgroup);
+	        ArrayList<RadioButton> radButList = new ArrayList<RadioButton>();
+	        radButList.add(radBut1);
+	        radButList.add(radBut2);
+	        radButList.add(radBut3);
 			Separator sep3 = new Separator();
 			
 			Alert alert2 = new Alert(AlertType.WARNING);
 			alert2.setTitle("Ошибка!");
 			alert2.setHeaderText("Такого элемента не существует.");
-			alert2.setContentText("Выбирите другой элемент!");
+			alert2.setContentText("Выберите другой элемент!");
 			
 			button1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -96,15 +103,18 @@ public class Main extends Application {
 			button4.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 		        public void handle(ActionEvent event) {
-					if (radButgroup.getToggles().contains(radButgroup.selectToggle (tfield3))) {
-						radButgroup.selectToggle((Toggle) tfield3);
-					}
-					else {
-						alert2.showAndWait();
-					}
-					
+					RadioButton select =  radButList.stream()
+		                    .filter(radioButton -> radioButton.getText().equals(tfield3.getText()))
+		                    .findAny()
+		                    .orElse(null);
+		            if(select!= null){
+		            	radButgroup.selectToggle(select);
+		            } else {
+		            	alert2.showAndWait();
+		            }
+			
 				}
-			});
+				});
 				
 			VBox pane1 = new VBox (10, label, tfield1, button1, combobox1, sep1);
 			VBox pane2 = new VBox(10, label2, tfield2, button2, button3, sep2);
