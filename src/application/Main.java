@@ -16,6 +16,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -78,6 +80,22 @@ public class Main extends Application {
 	        chkBoxList.add(chkBox2);
 	        chkBoxList.add(chkBox3);
 			Separator sep4 = new Separator();
+			
+			Label label5 = new Label ("Виджет №5:");
+			TextField tfield5 = new TextField ("Введите информацию");
+			Button button6 = new Button("Занисти в Column1");
+			Button button7 = new Button("Выбрать объект");
+			Button button8 = new Button("Выбрать объект");
+			TableView table1 = new TableView();
+			TableColumn<String, String> firstColumn = new TableColumn<String, String>("Column1");
+	        // определяем фабрику для столбца с привязкой к свойству name
+	      //  nameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+	        // добавляем столбец
+	        table1.getColumns().add(firstColumn);
+	        TableColumn<String, String> secondColumn = new TableColumn<String, String>("Column2");
+	        table1.getColumns().add(secondColumn);
+			Separator sep5 = new Separator();
+
 			
 			Alert alert2 = new Alert(AlertType.WARNING);
 			alert2.setTitle("Ошибка!");
@@ -147,13 +165,20 @@ public class Main extends Application {
 			
 				}
 				}); 
+			button6.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+		        public void handle(ActionEvent event) {
+					table1.firstColumn.add	(tfield5.getText());
+				}
+			});
 				
-			VBox pane1 = new VBox (10, label, tfield1, button1, combobox1, sep1);
-			VBox pane2 = new VBox(10, label2, tfield2, button2, button3, sep2);
-			VBox pane3 = new VBox (10, label3, tfield3, button4, radBut1, radBut2, radBut3, sep3);
-			VBox pane4 = new VBox (10, label4, tfield4, button5, chkBox1, chkBox2, chkBox3, sep4);
-			VBox root = new VBox(10, pane1, pane2, pane3, pane4);
-			Scene scene = new Scene(root,300,1000);
+			VBox pane1 = new VBox (5, label, tfield1, button1, combobox1, sep1);
+			VBox pane2 = new VBox(5, label2, tfield2, button2, button3, sep2);
+			VBox pane3 = new VBox (5, label3, tfield3, button4, radBut1, radBut2, radBut3, sep3);
+			VBox pane4 = new VBox (5, label4, tfield4, button5, chkBox1, chkBox2, chkBox3, sep4);
+			VBox pane5 = new VBox (5, label5, tfield5, button6, button7, button8, table1, sep5);
+			VBox root = new VBox(3, pane1, pane2, pane3, pane4, pane5);
+			Scene scene = new Scene(root,300,950);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Lab 1, Smolensky P.");
