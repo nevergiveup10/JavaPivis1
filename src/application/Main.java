@@ -21,16 +21,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-//public class FirstWidget extends Application {
-//}
+
 
 public class Main extends Application {
 	@Override
@@ -84,16 +86,22 @@ public class Main extends Application {
 			Label label5 = new Label ("Виджет №5:");
 			TextField tfield5 = new TextField ("Введите информацию");
 			Button button6 = new Button("Занисти в Column1");
-			Button button7 = new Button("Выбрать объект");
-			Button button8 = new Button("Выбрать объект");
+			Button button7 = new Button("Перенести в Column2");
+			Button button8 = new Button("Перенести в Column1");
 			TableView table1 = new TableView();
-			TableColumn<String, String> firstColumn = new TableColumn<String, String>("Column1");
-	        // определяем фабрику для столбца с привязкой к свойству name
-	      //  nameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-	        // добавляем столбец
+			TableColumn firstColumn = new TableColumn("Column1");
+			firstColumn.setMinWidth(150);
+			firstColumn.setCellValueFactory(new PropertyValueFactory<>("string1"));
 	        table1.getColumns().add(firstColumn);
-	        TableColumn<String, String> secondColumn = new TableColumn<String, String>("Column2");
+	        
+	        TableColumn secondColumn = new TableColumn("Column2");
+	        secondColumn.setMinWidth(150);
+	        secondColumn.setCellValueFactory(new PropertyValueFactory<>("string2"));
 	        table1.getColumns().add(secondColumn);
+	        
+	        ObservableList<StringData> data = FXCollections.observableArrayList();
+	        
+	        
 			Separator sep5 = new Separator();
 
 			
@@ -147,7 +155,7 @@ public class Main extends Application {
 				}
 				});
 			
-			button5.setOnAction(new EventHandler<ActionEvent>() {
+			button5.setOnAction(new EventHandler<ActionEvent>() { 
 				@Override
 		        public void handle(ActionEvent event) {
 					CheckBox select2 =  chkBoxList.stream()
@@ -168,10 +176,33 @@ public class Main extends Application {
 			button6.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 		        public void handle(ActionEvent event) {
-					table1.firstColumn.add	(tfield5.getText());
+					data.add(new StringData(tfield5.getText(),""));
+		            table1.setItems(data);
 				}
 			});
 				
+			button7.setOnAction(new EventHandler<ActionEvent>() { 
+				@Override
+		        public void handle(ActionEvent event) {
+					int num = table1.getFocusModel().getFocusedIndex();
+		            String stringBuffer = data.get(num).getString1();
+		            data.remove(num);
+		            data.add(num, new StringData("", stringBuffer));
+		            table1.setItems(data);
+				}
+			});
+			
+			button8.setOnAction(new EventHandler<ActionEvent>() { 
+				@Override
+		        public void handle(ActionEvent event) {
+					int num = table1.getFocusModel().getFocusedIndex();
+		            String stringBuffer = data.get(num).getString2();
+		            data.remove(num);
+		            data.add(num, new StringData(stringBuffer, ""));
+		            table1.setItems(data);
+				}
+			});
+			
 			VBox pane1 = new VBox (5, label, tfield1, button1, combobox1, sep1);
 			VBox pane2 = new VBox(5, label2, tfield2, button2, button3, sep2);
 			VBox pane3 = new VBox (5, label3, tfield3, button4, radBut1, radBut2, radBut3, sep3);
