@@ -1,224 +1,30 @@
 package application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
+
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.Group;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.util.ArrayList;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
-
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-			
-			Label label = new Label ("Виджет №1:");
-			Button button1 = new Button("Внести в список");         
-			TextField tfield1 = new TextField ("Введите текст");
-			ComboBox<String> combobox1 = new ComboBox<String>();
-			Separator sep1 = new Separator();
-			
-			Alert alert1 = new Alert(AlertType.WARNING);
-			alert1.setTitle("Ошибка!");
-			alert1.setHeaderText("Такой элемент уже содержится.");
-			alert1.setContentText("Введите другой текст!");
-			
-			Label label2 = new Label ("Виджет №2:");
-			Button button2 = new Button("Кнопка 1!");           
-			Button button3 = new Button("Кнопка 2!");           
-			TextField tfield2 = new TextField ("Введите текст");
-			Separator sep2 = new Separator();
-			
-			Label label3 = new Label ("Виджет №3:");
-			TextField tfield3 = new TextField ("Введите имя объекта");
-			Button button4 = new Button("Выбрать объект");
-			RadioButton radBut1 = new RadioButton("1");
-			RadioButton radBut2 = new RadioButton("2");
-			RadioButton radBut3 = new RadioButton("3");
-			ToggleGroup radButgroup = new ToggleGroup();
-	        radBut1.setToggleGroup(radButgroup);
-	        radBut2.setToggleGroup(radButgroup);
-	        radBut3.setToggleGroup(radButgroup);
-	        ArrayList<RadioButton> radButList = new ArrayList<RadioButton>();
-	        radButList.add(radBut1);
-	        radButList.add(radBut2);
-	        radButList.add(radBut3);
-			Separator sep3 = new Separator();
-			
-			Label label4 = new Label ("Виджет №4:");
-			TextField tfield4 = new TextField ("Введите имя объекта");
-			Button button5 = new Button("Выбрать объект");
-			CheckBox chkBox1 = new CheckBox("1");
-			CheckBox chkBox2 = new CheckBox("2");
-			CheckBox chkBox3 = new CheckBox("3");
-	        ArrayList<CheckBox> chkBoxList = new ArrayList<CheckBox>();
-	        chkBoxList.add(chkBox1);
-	        chkBoxList.add(chkBox2);
-	        chkBoxList.add(chkBox3);
-			Separator sep4 = new Separator();
-			
-			Label label5 = new Label ("Виджет №5:");
-			TextField tfield5 = new TextField ("Введите информацию");
-			Button button6 = new Button("Занисти в Column1");
-			Button button7 = new Button("Перенести в Column2");
-			Button button8 = new Button("Перенести в Column1");
-			TableView table1 = new TableView();
-			TableColumn firstColumn = new TableColumn("Column1");
-			firstColumn.setMinWidth(150);
-			firstColumn.setCellValueFactory(new PropertyValueFactory<>("string1"));
-	        table1.getColumns().add(firstColumn);
-	        
-	        TableColumn secondColumn = new TableColumn("Column2");
-	        secondColumn.setMinWidth(150);
-	        secondColumn.setCellValueFactory(new PropertyValueFactory<>("string2"));
-	        table1.getColumns().add(secondColumn);
-	        
-	        ObservableList<StringData> data = FXCollections.observableArrayList();
-	        
-	        
-			Separator sep5 = new Separator();
 
-			
-			Alert alert2 = new Alert(AlertType.WARNING);
-			alert2.setTitle("Ошибка!");
-			alert2.setHeaderText("Такого элемента не существует.");
-			alert2.setContentText("Выберите другой элемент!");
-			
-			button1.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-	        public void handle(ActionEvent event) {
-			if (combobox1.getItems().contains(tfield1.getText())) {
-				alert1.showAndWait();
-			}
-			else {
-			combobox1.getItems().addAll(tfield1.getText());
-			combobox1.setValue(tfield1.getText());
-			}
-			}
-			});
-			
-			button2.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-		        public void handle(ActionEvent event) {
-					button3.setText(tfield2.getText());					
-				}
-			});
-			
-			button3.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-		        public void handle(ActionEvent event) {
-					String strBuffer = button2.getText(); 
-					button2.setText(button3.getText());				
-					button3.setText(strBuffer);	
-				}
-			});
-			
-			button4.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-		        public void handle(ActionEvent event) {
-					RadioButton select1 =  radButList.stream()
-		                    .filter(radioButton -> radioButton.getText().equals(tfield3.getText()))
-		                    .findAny()
-		                    .orElse(null);
-		            if(select1!= null){
-		            	radButgroup.selectToggle(select1);
-		            } else {
-		            	alert2.showAndWait();
-		            }
-			
-				}
-				});
-			
-			button5.setOnAction(new EventHandler<ActionEvent>() { 
-				@Override
-		        public void handle(ActionEvent event) {
-					CheckBox select2 =  chkBoxList.stream()
-		                    .filter(checkBox -> checkBox.getText().equals(tfield4.getText()))
-		                    .findAny()
-		                    .orElse(null);
-		            if(select2!= null){
-		            	if(select2.isSelected()==false) {
-		            		select2.fire();
-		            		}
-		            }	
-		             else {
-		            	alert2.showAndWait();
-		            }
-			
-				}
-				}); 
-			button6.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-		        public void handle(ActionEvent event) {
-					data.add(new StringData(tfield5.getText(),""));
-		            table1.setItems(data);
-				}
-			});
-				
-			button7.setOnAction(new EventHandler<ActionEvent>() { 
-				@Override
-		        public void handle(ActionEvent event) {
-					int num = table1.getFocusModel().getFocusedIndex();
-		            String stringBuffer = data.get(num).getString1();
-		            data.remove(num);
-		            data.add(num, new StringData("", stringBuffer));
-		            table1.setItems(data);
-				}
-			});
-			
-			button8.setOnAction(new EventHandler<ActionEvent>() { 
-				@Override
-		        public void handle(ActionEvent event) {
-					int num = table1.getFocusModel().getFocusedIndex();
-		            String stringBuffer = data.get(num).getString2();
-		            data.remove(num);
-		            data.add(num, new StringData(stringBuffer, ""));
-		            table1.setItems(data);
-				}
-			});
-			
-			VBox pane1 = new VBox (5, label, tfield1, button1, combobox1, sep1);
-			VBox pane2 = new VBox(5, label2, tfield2, button2, button3, sep2);
-			VBox pane3 = new VBox (5, label3, tfield3, button4, radBut1, radBut2, radBut3, sep3);
-			VBox pane4 = new VBox (5, label4, tfield4, button5, chkBox1, chkBox2, chkBox3, sep4);
-			VBox pane5 = new VBox (5, label5, tfield5, button6, button7, button8, table1, sep5);
-			VBox root = new VBox(3, pane1, pane2, pane3, pane4, pane5);
-			Scene scene = new Scene(root,300,950);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Lab 1, Smolensky P.");
-			primaryStage.show();
+		FirstWidget firstWidget = new FirstWidget();
+		SecondWidget secondWidget = new SecondWidget();
+		ThirdWidget thirdWidget = new ThirdWidget();
+		FourthWidget fourthWidget = new FourthWidget();
+		FifthWidget fifthWidget = new FifthWidget();
+
+		VBox root = new VBox(3, firstWidget.pane1(), secondWidget.pane2(), thirdWidget.pane3(), fourthWidget.pane4(),
+				fifthWidget.pane5());
+		Scene scene = new Scene(root, 300, 950);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Lab 1, Smolensky P.");
+		primaryStage.show();
 
 	}
-	
 
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
