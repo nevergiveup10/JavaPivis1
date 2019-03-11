@@ -38,9 +38,9 @@ public class FourthWidget {
 				CheckBox select2 = chkBoxList.stream().filter(checkBox -> checkBox.getText().equals(tField.getText()))
 						.findAny().orElse(null);
 				if (select2 != null) {
-					if (select2.isSelected() == false) {
-						select2.fire();
-					}
+
+					select2.fire();
+
 				} else {
 					alert.showAndWait();
 				}
