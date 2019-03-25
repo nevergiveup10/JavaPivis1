@@ -121,7 +121,7 @@ public class PaneChange {
 				});
 				threadPause();
 			}
-				
+
 		}).start();
 
 	}
