@@ -11,6 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class FifthWidget {
@@ -26,7 +30,7 @@ public class FifthWidget {
 	ObservableList<StringData> data = FXCollections.observableArrayList();
 	Separator sep = new Separator();
 
-	public VBox pane5() {
+	public void colSetup() {
 
 		firstColumn.setMinWidth(150);
 		firstColumn.setCellValueFactory(new PropertyValueFactory<>("string1"));
@@ -35,6 +39,9 @@ public class FifthWidget {
 		secondColumn.setMinWidth(150);
 		secondColumn.setCellValueFactory(new PropertyValueFactory<>("string2"));
 		table.getColumns().add(secondColumn);
+	}
+
+	private void pane5() {
 
 		button1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -65,7 +72,42 @@ public class FifthWidget {
 				table.setItems(data);
 			}
 		});
+
+	}
+
+	public VBox vBox5() {
+		pane5();
 		VBox box5 = new VBox(5, label, tField, button1, button2, button3, table, sep);
+		return box5;
+	}
+
+	public HBox hBox5() {
+		pane5();
+		HBox box555 = new HBox(5, label, tField, button1, button2, button3, table, sep);
+		return box555;
+	}
+
+	public StackPane stackPane5() {
+		pane5();
+		StackPane box5 = new StackPane(label, tField, button1, button2, button3, table, sep);
+		return box5;
+	}
+
+	public AnchorPane anchorPane5() {
+		pane5();
+		AnchorPane box5 = new AnchorPane(label, tField, button1, button2, button3, table, sep);
+		AnchorPane.setRightAnchor(label, 10.0);
+		AnchorPane.setRightAnchor(tField, 20.0);
+		AnchorPane.setRightAnchor(button1, 30.0);
+		AnchorPane.setRightAnchor(button2, 40.0);
+		AnchorPane.setRightAnchor(button3, 30.0);
+		AnchorPane.setRightAnchor(table, 20.0);
+		return box5;
+	}
+
+	public FlowPane flowPane5() {
+		pane5();
+		FlowPane box5 = new FlowPane(label, tField, button1, button2, button3, table, sep);
 		return box5;
 	}
 }

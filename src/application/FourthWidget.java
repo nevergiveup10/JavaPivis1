@@ -11,6 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class FourthWidget {
@@ -24,7 +28,7 @@ public class FourthWidget {
 	Alert alert = new Alert(AlertType.WARNING);
 	Separator sep = new Separator();
 
-	public VBox pane4() {
+	private void pane4() {
 		chkBoxList.add(chkBox1);
 		chkBoxList.add(chkBox2);
 		chkBoxList.add(chkBox3);
@@ -47,8 +51,42 @@ public class FourthWidget {
 
 			}
 		});
+
+	}
+
+	public VBox vBox4() {
+		pane4();
 		VBox box4 = new VBox(5, label, tField, button, chkBox1, chkBox2, chkBox3, sep);
 		return box4;
+	}
 
+	public HBox hBox4() {
+		pane4();
+		HBox box444 = new HBox(5, label, tField, button, chkBox1, chkBox2, chkBox3, sep);
+		return box444;
+	}
+
+	public StackPane stackPane4() {
+		pane4();
+		StackPane box4 = new StackPane(label, tField, button, chkBox1, chkBox2, chkBox3, sep);
+		return box4;
+	}
+
+	public AnchorPane anchorPane4() {
+		pane4();
+		AnchorPane box4 = new AnchorPane(label, tField, button, chkBox1, chkBox2, chkBox3, sep);
+		AnchorPane.setRightAnchor(label, 10.0);
+		AnchorPane.setRightAnchor(tField, 20.0);
+		AnchorPane.setRightAnchor(button, 30.0);
+		AnchorPane.setRightAnchor(chkBox1, 40.0);
+		AnchorPane.setRightAnchor(chkBox2, 30.0);
+		AnchorPane.setRightAnchor(chkBox3, 20.0);
+		return box4;
+	}
+
+	public FlowPane flowPane4() {
+		pane4();
+		FlowPane box4 = new FlowPane(label, tField, button, chkBox1, chkBox2, chkBox3, sep);
+		return box4;
 	}
 }

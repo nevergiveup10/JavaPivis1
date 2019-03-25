@@ -12,6 +12,10 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class ThirdWidget {
@@ -26,7 +30,7 @@ public class ThirdWidget {
 	Alert alert = new Alert(AlertType.WARNING);
 	Separator sep3 = new Separator();
 
-	public VBox pane3() {
+	public void pane3() {
 		radBut1.setToggleGroup(radButgroup);
 		radBut2.setToggleGroup(radButgroup);
 		radBut3.setToggleGroup(radButgroup);
@@ -52,7 +56,42 @@ public class ThirdWidget {
 
 			}
 		});
+	}
+
+	public VBox vBox3() {
+		pane3();
 		VBox box3 = new VBox(5, label, tField, button, radBut1, radBut2, radBut3, sep3);
+		return box3;
+	}
+
+	public HBox hBox3() {
+		pane3();
+		HBox box333 = new HBox(5, label, tField, button, radBut1, radBut2, radBut3, sep3);
+		return box333;
+	}
+
+	public StackPane stackPane3() {
+		pane3();
+		StackPane box3 = new StackPane(label, tField, button, radBut1, radBut2, radBut3, sep3);
+		return box3;
+	}
+
+	public AnchorPane anchorPane3() {
+		pane3();
+		AnchorPane box3 = new AnchorPane(label, tField, button, radBut1, radBut2, radBut3, sep3);
+		AnchorPane.setRightAnchor(label, 10.0);
+		AnchorPane.setRightAnchor(tField, 20.0);
+		AnchorPane.setRightAnchor(button, 30.0);
+		AnchorPane.setRightAnchor(radBut1, 40.0);
+		AnchorPane.setRightAnchor(radBut2, 30.0);
+		AnchorPane.setRightAnchor(radBut3, 20.0);
+
+		return box3;
+	}
+
+	public FlowPane flowPane3() {
+		pane3();
+		FlowPane box3 = new FlowPane(label, tField, button, radBut1, radBut2, radBut3, sep3);
 		return box3;
 	}
 }
